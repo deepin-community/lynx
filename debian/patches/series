@@ -1,0 +1,5 @@
+lynxcfg.patch
+aboutlynx.patch
+21_do_not_strip_-g.diff
+nested_tables.patch
+30_build_path_in_binary.diff

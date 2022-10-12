@@ -1,0 +1,7 @@
+usr/share/doc/lynx-common/README.Debian usr/share/doc/lynx/README.Debian
+usr/share/doc/lynx-common/README.gz     usr/share/doc/lynx/README.gz
+usr/share/doc/lynx-common/PROBLEMS.gz   usr/share/doc/lynx/PROBLEMS.gz
+usr/share/doc/lynx-common/COPYHEADER    usr/share/doc/lynx/COPYHEADER
+usr/share/doc/lynx-common/changelog.gz  usr/share/doc/lynx/changelog.gz
+usr/share/doc/lynx-common/lynx_help     usr/share/doc/lynx/lynx_help
+usr/share/doc/lynx-common/docs          usr/share/doc/lynx/docs

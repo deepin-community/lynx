@@ -1,0 +1,18 @@
+Description: Strip out build path from cfg_defs.h
+ For build reproducibility when building in a different directory. Debian
+ builds use -fdebug-prefix-map=$builddir=.
+Author: Andreas Metzler <ametzler@debian.org>
+Origin: vendor
+Forwarded: no
+Last-Update: 2021-07-27
+
+--- a/scripts/cfg_defs.sh
++++ b/scripts/cfg_defs.sh
+@@ -21,6 +21,7 @@ static const struct {
+ EOF
+ 
+ sed \
++	-e "s@`pwd`@SUPRRESSED4REPRODUCIBLEBUILD@g" \
+ 	-e '/^#/d'     \
+ 	-e 's/^.[^=]*_cv_//' \
+ 	-e 's/=\${.*=/=/'  \

@@ -1,0 +1,62 @@
+Source: lynx
+Section: web
+Priority: optional
+Maintainer: Debian Lynx Packaging Team <pkg-lynx-maint@lists.alioth.debian.org>
+Uploaders: Axel Beckert <abe@debian.org>,
+           Andreas Metzler <ametzler@debian.org>,
+           Elimar Riesebieter <riesebie@lxtec.de>
+Homepage: https://lynx.invisible-island.net/
+Build-Depends: autoconf-dickey,
+               debhelper-compat (= 13),
+               gettext,
+               libbsd-dev,
+               libbz2-dev,
+               libgnutls28-dev,
+               libidn2-dev,
+               libncursesw5-dev,
+               openssh-client,
+               pkg-config,
+               sharutils,
+               telnet | telnet-client,
+               zlib1g-dev
+Standards-Version: 4.6.0
+Vcs-Browser: https://salsa.debian.org/lynx-team/lynx
+Vcs-Git: https://salsa.debian.org/lynx-team/lynx.git
+Rules-Requires-Root: no
+
+Package: lynx-common
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Recommends: lynx
+Breaks: lynx-cur (<< 2.8.9dev8-2~),
+        lynx-cur-wrapper (<< 2.8.8dev.8-2)
+Replaces: lynx-cur (<< 2.8.9dev8-2~),
+          lynx-cur-wrapper (<< 2.8.8dev.8-2)
+Description: shared files for lynx package
+ In continuous development since 1992, Lynx sets the standard for
+ text-mode web clients.
+ .
+ This package contains architecture-independent files shared by the
+ lynx package over any architecture available in Debian.  Examples of
+ such shared files are: manpages, locale and mimetype definitions, and
+ configuration files.
+
+Package: lynx
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         lynx-common
+Provides: news-reader,
+          www-browser
+Breaks: lynx-cur (<< 2.8.9dev8-2~),
+        lynx-cur-wrapper (<< 2.8.8dev.8-2)
+Replaces: lynx-cur (<< 2.8.9dev8-2~),
+          lynx-cur-wrapper (<< 2.8.8dev.8-2)
+Conflicts: lynx-ssl
+Recommends: mime-support
+Description: classic non-graphical (text-mode) web browser
+ In continuous development since 1992, Lynx sets the standard for
+ text-mode web clients. It is fast and simple to use, with support for
+ browsing via FTP, Gopher, HTTP, HTTPS, NNTP, and the local file system.

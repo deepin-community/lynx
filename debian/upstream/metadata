@@ -1,0 +1,8 @@
+%YAML 1.1
+---
+# https://wiki.debian.org/UpstreamMetadata
+Archive: https://savannah.nongnu.org/projects/lynx/
+Bug-Database: https://savannah.nongnu.org/bugs/?group=lynx
+Bug-Submit: https://savannah.nongnu.org/bugs/?func=additem&group=lynx
+Contact: lynx-dev@nongnu.org
+Name: Lynx

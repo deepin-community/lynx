@@ -1,0 +1,65 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND := -Wall -DNO_BUILDSTAMP
+
+SSL=gnu
+# uncomment the next line if you want openssl version
+#SSL=ssl
+
+ifeq ($(SSL),gnu)
+	CONFTLS := --with-gnutls=/usr
+else
+	CONFTLS := --with-ssl
+endif
+
+# Ensure the most compatible helper program paths to work on both
+# usrmerge and non-usrmerge systems.
+BINARY_PATHS += GZIP=/bin/gzip
+BINARY_PATHS += UNCOMPRESS=/bin/gunzip
+BINARY_PATHS += MV=/bin/mv
+BINARY_PATHS += ZCAT=/bin/zcat
+BINARY_PATHS += TAR=/bin/tar
+BINARY_PATHS += RM=/bin/rm
+
+override_dh_auto_configure:
+ifeq ($(SSL),gnu)
+	sed -i -e s/libssl-dev/libgnutls28-dev/g debian/control
+else
+	sed -i -e s/libgnutls28-dev/libssl-dev/g debian/control
+endif
+
+	env cf_cv_SYSTEM_MAIL=/usr/sbin/sendmail \
+	COMPRESS=/usr/bin/compress BZIP2=/bin/bzip2 UNZIP=/usr/bin/unzip \
+	ZIP=/usr/bin/zip \
+	LIBS="-lbsd" \
+	DH_COMPAT=10 dh_auto_configure --verbose -- \
+	--sysconfdir=/etc/lynx \
+	--enable-8bit-toupper --enable-externs --enable-debug \
+	--enable-nsl-fork --enable-cgi-links --enable-exec-links \
+	--enable-exec-scripts --enable-persistent-cookies --enable-nls \
+	--enable-gzip-help --enable-prettysrc --enable-source-cache \
+	--enable-cjk --enable-default-colors --enable-nested-tables \
+	--enable-japanese-utf8 --enable-ipv6 --enable-htmlized-cfg \
+        --enable-forms-options --enable-justify-elts --enable-partial \
+        --enable-read-eta --enable-scrollbar --enable-syslog \
+	--with-zlib --with-bzlib --without-included-gettext \
+	--with-screen=ncursesw --enable-justify-elts \
+	$(BINARY_PATHS) \
+	$(CONFTLS)
+
+override_dh_autoreconf:
+	dh_autoreconf autoreconf-dickey -- -f -i
+
+override_dh_auto_install:
+	dh_auto_install --verbose -- install-full
+	cd debian/tmp/usr/share/lynx_help && rm -vf COPYING COPYHEADER
+	cd debian/tmp/usr/share/lynx_doc && rm -rvf CHANGES \
+		COPYHEADER.asc COPYING COPYING.asc samples test
+
+override_dh_link:
+	rm -fv debian/lynx/usr/share/doc/lynx/changelog
+	dh_link
+
+%:
+	dh $@

@@ -1,0 +1,17 @@
+Description: turn off nested-tables option
+Author: Denis Briand <debian@denis-briand.fr>
+Bug-Debian: https://bugs.debian.org/387555
+
+Index: lynx/lynx.cfg
+===================================================================
+--- lynx.orig/lynx.cfg
++++ lynx/lynx.cfg
+@@ -3044,7 +3044,7 @@ COLOR:6:brightred:black
+ # It is enabled by default when the COLOR_STYLE configuration is used,
+ # and false otherwise.
+ #
+-#NESTED_TABLES: true
++NESTED_TABLES: false
+ 
+ .h2 NO_TABLE_CENTER
+ # Normally table cells are centered on the table grid.
